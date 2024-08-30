@@ -1,7 +1,8 @@
 'use client'
 
-import { createContext, useEffect, useState } from "react";
-import { IContext, IContextOptions } from "../types";
+import { createContext } from "react";
+import { IContext, IContextOptions } from "./types";
+import { NOFY_API_URL } from "./server";
 
 /*                                                                    +
     Frontend context for providing login, logout, register and refresh
@@ -9,15 +10,15 @@ import { IContext, IContextOptions } from "../types";
     server components need to use useSession()
 */
 
-const NOFY_API_URL = 'https://api.nofy.io'
-const PUBLIC_KEY = Buffer.from(process.env.NOFY_PUBLIC_KEY + ':').toString('base64')
-
 export const NofyContext = createContext<IContext>(null as any)
 
-const NofyContextProvider = <IU,>({
+const NofyContextProvider = ({
     children,
     id,
+    publicKey
 }: IContextOptions) => {
+    const PUBLIC_KEY = Buffer.from(publicKey + ":").toString("base64");
+
     const getContext = () => {
         let context = id
 
@@ -72,6 +73,7 @@ const NofyContextProvider = <IU,>({
 
     const pageView = async (url: string, referer?: string): Promise<boolean> => {
         try {
+            console.log("pk: ", PUBLIC_KEY)
             const contextId = getContext()
 
             const r = await fetch(NOFY_API_URL + '/log/count', {

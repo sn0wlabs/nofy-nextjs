@@ -13,16 +13,16 @@ export default defineConfig([
     {
         ...cfg,
         entry: {
-            index: "src/index.ts",
+            index: "src/server/index.ts",
         },
-        outDir: "dist",
+        outDir: "dist/server",
     },
     {
         ...cfg,
         entry: {
-            index: "src/client/index.ts",
+            index: "src/index.ts",
         },
-        outDir: "dist/client",
+        outDir: "dist",
         esbuildOptions: (options) => {
             options.banner = {
                 js: '"use client";',
