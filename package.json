@@ -3,6 +3,23 @@
     "version": "1.0.0",
     "description": "nofy package for NextJS",
     "main": "./dist/index.js",
+    "exports": {
+        ".": {
+            "types": "./dist/index.d.ts",
+            "require": "./dist/index.js",
+            "import": "./dist/index.js",
+            "module": "./dist/index.mjs"
+        },
+        "./server": {
+            "types": "./dist/server/index.d.ts",
+            "require": "./dist/server/index.js",
+            "import": "./dist/server/index.js",
+            "module": "./dist/server/index.mjs"
+        }
+    },
+    "files": [
+        "dist"
+    ],
     "scripts": {
         "build": "tsup",
         "test": "echo \"Error: no test specified\" && exit 1"
